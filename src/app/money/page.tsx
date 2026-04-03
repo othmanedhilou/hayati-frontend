@@ -35,9 +35,9 @@ export default function MoneyPage() {
         api.get('/transactions'),
         api.get(`/transactions/summary?month=${month}`),
       ]);
-      setTransactions(txRes.data.data || txRes.data);
+      setTransactions(txRes.data.transactions || txRes.data.data || txRes.data);
       const s = sumRes.data;
-      setSummary({ income: parseFloat(s.income) || 0, expenses: parseFloat(s.expenses) || 0, balance: parseFloat(s.balance) || 0 });
+      setSummary({ income: parseFloat(s.total_income || s.income) || 0, expenses: parseFloat(s.total_expense || s.expenses) || 0, balance: parseFloat(s.balance) || 0 });
     } catch {} finally { setLoading(false); }
   };
 

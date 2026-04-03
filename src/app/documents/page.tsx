@@ -27,7 +27,7 @@ export default function DocumentsPage() {
   const fetchDocs = async () => {
     try {
       const res = await api.get('/documents');
-      setDocs(res.data.data || res.data);
+      setDocs(res.data.documents || res.data.data || res.data);
     } catch {} finally { setLoading(false); }
   };
 
