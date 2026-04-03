@@ -28,7 +28,7 @@ export default function TransportPage() {
   const cities = ['Casablanca', 'Rabat', 'Marrakech', 'Fès', 'Tanger'];
 
   useEffect(() => {
-    api.get('/transport').then(res => setRoutes(res.data.routes || res.data));
+    api.get('/transport').then(res => setRoutes(res.data.routes || res.data)).catch(() => {});
   }, []);
 
   const handleSearch = async () => {
@@ -36,7 +36,7 @@ export default function TransportPage() {
     setLoading(true);
     setSearched(true);
     try {
-      const res = await api.get(`/transport/search?origin=${origin}&destination=${destination}`);
+      const res = await api.get(`/transport/search?origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(destination)}`);
       const data = res.data.routes || res.data;
       setResults(Array.isArray(data) && data.length > 0 ? data[0] : null);
     } catch { setResults(null); }

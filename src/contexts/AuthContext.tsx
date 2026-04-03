@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const token = Cookies.get('token');
     if (token) {
       api.get('/user')
-        .then((res) => setUser(res.data))
+        .then((res) => setUser(res.data.user || res.data))
         .catch(() => Cookies.remove('token'))
         .finally(() => setLoading(false));
     } else {
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const register = async (data: { name: string; email: string; password: string; phone?: string; city?: string }) => {
-    const res = await api.post('/register', data);
+    const res = await api.post('/register', { ...data, password_confirmation: data.password });
     Cookies.set('token', res.data.token, { expires: 7 });
     setUser(res.data.user);
   };
