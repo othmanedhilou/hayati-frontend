@@ -7,16 +7,20 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const navItems = [
   { href: '/', icon: Home, label: 'Accueil' },
+  { href: '/documents', icon: FileText, label: 'Documents' },
+  { href: '/transport', icon: Car, label: 'Transport' },
+  { href: '/money', icon: Wallet, label: 'Budget' },
   { href: '/services', icon: Wrench, label: 'Services' },
+  { href: '/prices', icon: ShoppingCart, label: 'Prix' },
   { href: '/chat', icon: MessageCircle, label: 'AI Chat' },
   { href: '/auth', icon: User, label: 'Profil' },
 ];
 
-const sidebarModules = [
-  { href: '/documents', icon: FileText, label: 'Documents' },
-  { href: '/transport', icon: Car, label: 'Transport' },
-  { href: '/money', icon: Wallet, label: 'Budget' },
-  { href: '/prices', icon: ShoppingCart, label: 'Prix' },
+const mobileItems = [
+  { href: '/', icon: Home, label: 'Accueil' },
+  { href: '/services', icon: Wrench, label: 'Services' },
+  { href: '/chat', icon: MessageCircle, label: 'AI Chat' },
+  { href: '/auth', icon: User, label: 'Profil' },
 ];
 
 export default function BottomNav() {
@@ -24,38 +28,35 @@ export default function BottomNav() {
 
   return (
     <>
-      {/* ============ DESKTOP SIDEBAR (lg+) ============ */}
-      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-72 bg-white border-r border-gray-200/60 flex-col z-50">
-        {/* Logo */}
-        <div className="px-7 pt-7 pb-5">
-          <Link href="/" className="flex items-center gap-3.5">
-            <img src="/logo.png" alt="HAYATI" className="h-12 w-12 rounded-xl" />
+      {/* ============ DESKTOP TOP NAV (lg+) ============ */}
+      <header className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-2xl border-b border-gray-200/60 shadow-sm">
+        <div className="max-w-7xl mx-auto px-8 flex items-center h-16">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-3 mr-10 shrink-0">
+            <img src="/logo.png" alt="HAYATI" className="h-9 w-9 rounded-lg" />
             <div>
-              <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">HAYATI</h1>
-              <p className="text-[11px] text-gray-400 font-medium -mt-0.5">حياتك أسهل</p>
+              <h1 className="text-lg font-extrabold text-gray-900 tracking-tight leading-none">HAYATI</h1>
+              <p className="text-[9px] text-gray-400 font-medium">حياتك أسهل</p>
             </div>
           </Link>
-        </div>
 
-        {/* Main nav */}
-        <nav className="flex-1 px-4 mt-4">
-          <p className="text-[11px] uppercase tracking-widest text-gray-400 font-bold px-4 mb-3">Menu</p>
-          <div className="space-y-1">
+          {/* Nav links */}
+          <nav className="flex items-center gap-1 flex-1">
             {navItems.map((item) => {
               const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
               return (
                 <Link key={item.href} href={item.href}>
-                  <div className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all ${
+                  <div className={`relative flex items-center gap-2 px-4 py-2 rounded-xl transition-all ${
                     isActive
                       ? 'bg-emerald-50 text-emerald-700'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                   }`}>
-                    <item.icon size={22} strokeWidth={isActive ? 2.2 : 1.8} />
-                    <span className={`text-[15px] ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
+                    <item.icon size={18} strokeWidth={isActive ? 2.3 : 1.8} />
+                    <span className={`text-sm ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
                     {isActive && (
                       <motion.div
-                        layoutId="sidebarActive"
-                        className="ml-auto w-1.5 h-6 rounded-full bg-gradient-to-b from-emerald-400 to-teal-500"
+                        layoutId="topNavActive"
+                        className="absolute bottom-0 left-3 right-3 h-0.5 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500"
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                       />
                     )}
@@ -63,36 +64,9 @@ export default function BottomNav() {
                 </Link>
               );
             })}
-          </div>
-
-          <div className="mt-8">
-            <p className="text-[11px] uppercase tracking-widest text-gray-400 font-bold px-4 mb-3">Modules</p>
-            <div className="space-y-1">
-              {sidebarModules.map((item) => {
-                const isActive = pathname.startsWith(item.href);
-                return (
-                  <Link key={item.href} href={item.href}>
-                    <div className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all ${
-                      isActive
-                        ? 'bg-emerald-50 text-emerald-700'
-                        : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
-                    }`}>
-                      <item.icon size={22} strokeWidth={isActive ? 2.2 : 1.8} />
-                      <span className={`text-[15px] ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
-                    </div>
-                  </Link>
-                );
-              })}
-            </div>
-          </div>
-        </nav>
-
-        {/* Bottom branding */}
-        <div className="px-6 py-4 border-t border-gray-100">
-          <p className="text-[11px] text-gray-400">HAYATI v1.0</p>
-          <p className="text-[10px] text-gray-300 mt-0.5">ETH 2026 - EMSI Rabat</p>
+          </nav>
         </div>
-      </aside>
+      </header>
 
       {/* ============ MOBILE BOTTOM NAV (<lg) ============ */}
       <nav
@@ -102,7 +76,7 @@ export default function BottomNav() {
         <div className="max-w-2xl mx-auto px-4 pb-2">
           <div className="bg-white/90 backdrop-blur-2xl border border-gray-200/60 shadow-[0_-4px_40px_rgba(0,0,0,0.08)] rounded-2xl mx-1">
             <div className="flex justify-around items-center h-16 px-2">
-              {navItems.map((item) => {
+              {mobileItems.map((item) => {
                 const isActive =
                   item.href === '/'
                     ? pathname === '/'

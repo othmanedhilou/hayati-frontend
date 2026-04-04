@@ -105,7 +105,7 @@ export default function RootLayout({
         <AuthProvider>
           <SplashScreen />
           <BottomNav />
-          <main className="max-w-2xl mx-auto pb-24 lg:ml-72 lg:max-w-none lg:mx-0 lg:pb-8 lg:min-h-screen lg:bg-gray-50">
+          <main className="max-w-2xl mx-auto pb-24 lg:max-w-7xl lg:pt-16 lg:pb-8">
             {children}
           </main>
         </AuthProvider>
