@@ -25,37 +25,37 @@ export default function BottomNav() {
   return (
     <>
       {/* ============ DESKTOP SIDEBAR (lg+) ============ */}
-      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 bg-white/80 backdrop-blur-2xl border-r border-gray-200/60 flex-col z-50">
+      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-72 bg-white/80 backdrop-blur-2xl border-r border-gray-200/60 flex-col z-50">
         {/* Logo */}
-        <div className="px-6 pt-7 pb-4">
-          <Link href="/" className="flex items-center gap-3">
-            <img src="/logo.png" alt="HAYATI" className="h-10 w-10 rounded-xl" />
+        <div className="px-7 pt-7 pb-5">
+          <Link href="/" className="flex items-center gap-3.5">
+            <img src="/logo.png" alt="HAYATI" className="h-12 w-12 rounded-xl" />
             <div>
-              <h1 className="text-lg font-extrabold text-gray-900 tracking-tight">HAYATI</h1>
-              <p className="text-[10px] text-gray-400 font-medium -mt-0.5">حياتك أسهل</p>
+              <h1 className="text-xl font-extrabold text-gray-900 tracking-tight">HAYATI</h1>
+              <p className="text-[11px] text-gray-400 font-medium -mt-0.5">حياتك أسهل</p>
             </div>
           </Link>
         </div>
 
         {/* Main nav */}
-        <nav className="flex-1 px-3 mt-2">
-          <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold px-3 mb-2">Menu</p>
-          <div className="space-y-0.5">
+        <nav className="flex-1 px-4 mt-4">
+          <p className="text-[11px] uppercase tracking-widest text-gray-400 font-bold px-4 mb-3">Menu</p>
+          <div className="space-y-1">
             {navItems.map((item) => {
               const isActive = item.href === '/' ? pathname === '/' : pathname.startsWith(item.href);
               return (
                 <Link key={item.href} href={item.href}>
-                  <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+                  <div className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all ${
                     isActive
                       ? 'bg-emerald-50 text-emerald-700'
                       : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                   }`}>
-                    <item.icon size={20} strokeWidth={isActive ? 2.2 : 1.8} />
-                    <span className={`text-sm ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
+                    <item.icon size={22} strokeWidth={isActive ? 2.2 : 1.8} />
+                    <span className={`text-[15px] ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
                     {isActive && (
                       <motion.div
                         layoutId="sidebarActive"
-                        className="ml-auto w-1.5 h-5 rounded-full bg-gradient-to-b from-emerald-400 to-teal-500"
+                        className="ml-auto w-1.5 h-6 rounded-full bg-gradient-to-b from-emerald-400 to-teal-500"
                         transition={{ type: 'spring', stiffness: 500, damping: 30 }}
                       />
                     )}
@@ -65,20 +65,20 @@ export default function BottomNav() {
             })}
           </div>
 
-          <div className="mt-6">
-            <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold px-3 mb-2">Modules</p>
-            <div className="space-y-0.5">
+          <div className="mt-8">
+            <p className="text-[11px] uppercase tracking-widest text-gray-400 font-bold px-4 mb-3">Modules</p>
+            <div className="space-y-1">
               {sidebarModules.map((item) => {
                 const isActive = pathname.startsWith(item.href);
                 return (
                   <Link key={item.href} href={item.href}>
-                    <div className={`flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all ${
+                    <div className={`flex items-center gap-3.5 px-4 py-3 rounded-xl transition-all ${
                       isActive
                         ? 'bg-emerald-50 text-emerald-700'
                         : 'text-gray-500 hover:bg-gray-50 hover:text-gray-700'
                     }`}>
-                      <item.icon size={20} strokeWidth={isActive ? 2.2 : 1.8} />
-                      <span className={`text-sm ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
+                      <item.icon size={22} strokeWidth={isActive ? 2.2 : 1.8} />
+                      <span className={`text-[15px] ${isActive ? 'font-bold' : 'font-medium'}`}>{item.label}</span>
                     </div>
                   </Link>
                 );
