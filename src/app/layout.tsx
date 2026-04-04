@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import BottomNav from "@/components/ui/BottomNav";
+import SplashScreen from "@/components/ui/SplashScreen";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -99,51 +100,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} moroccan-bg text-gray-900 min-h-screen antialiased`}>
-        {/* Splash screen */}
-        <div id="splash-screen" style={{
-          position: 'fixed', inset: 0, zIndex: 9999,
-          background: 'linear-gradient(135deg, #f5f0e8 0%, #eae5da 50%, #f0ebe2 100%)',
-          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
-          transition: 'opacity 0.6s ease, visibility 0.6s ease',
-        }}>
-          <img
-            src="/logo.png"
-            alt="HAYATI"
-            style={{ height: '200px', animation: 'splashPulse 1.8s ease-in-out infinite' }}
-          />
-          <div style={{
-            marginTop: '32px', width: '48px', height: '4px', borderRadius: '2px',
-            background: '#e0dbd2', overflow: 'hidden', position: 'relative',
-          }}>
-            <div style={{
-              position: 'absolute', inset: 0, background: 'linear-gradient(90deg, #059669, #0d9488)',
-              borderRadius: '2px', animation: 'splashBar 1.2s ease-in-out infinite',
-            }} />
-          </div>
-        </div>
-        <style dangerouslySetInnerHTML={{ __html: `
-          @keyframes splashPulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.04); opacity: 0.9; }
-          }
-          @keyframes splashBar {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
-          }
-        `}} />
-        <script dangerouslySetInnerHTML={{ __html: `
-          window.addEventListener('load', function() {
-            setTimeout(function() {
-              var s = document.getElementById('splash-screen');
-              if (s) { s.style.opacity = '0'; s.style.visibility = 'hidden'; }
-            }, 1200);
-            setTimeout(function() {
-              var s = document.getElementById('splash-screen');
-              if (s) s.remove();
-            }, 1800);
-          });
-        `}} />
         <AuthProvider>
+          <SplashScreen />
           <main className="max-w-2xl mx-auto pb-24">
             {children}
           </main>
