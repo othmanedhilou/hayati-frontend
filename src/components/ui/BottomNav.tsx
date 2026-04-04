@@ -25,7 +25,7 @@ export default function BottomNav() {
   return (
     <>
       {/* ============ DESKTOP SIDEBAR (lg+) ============ */}
-      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-72 bg-white/80 backdrop-blur-2xl border-r border-gray-200/60 flex-col z-50">
+      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-72 bg-white border-r border-gray-200/60 flex-col z-50">
         {/* Logo */}
         <div className="px-7 pt-7 pb-5">
           <Link href="/" className="flex items-center gap-3.5">
