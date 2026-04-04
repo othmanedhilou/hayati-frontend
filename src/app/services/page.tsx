@@ -49,15 +49,19 @@ export default function ServicesPage() {
   const [search, setSearch] = useState('');
   const [city, setCity] = useState('');
   const [cityOpen, setCityOpen] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     api.get('/services/categories')
       .then(res => {
         setCategories(res.data.categories || res.data || []);
+        setError(null);
         setLoading(false);
       })
-      .catch(() => {
+      .catch((err) => {
+        console.error('Error loading categories:', err);
         setCategories([]);
+        setError('Impossible de charger les catégories. Veuillez réessayer.');
         setLoading(false);
       });
   }, []);
@@ -65,6 +69,7 @@ export default function ServicesPage() {
   const loadProviders = async (cat: Category) => {
     setSelectedCat(cat);
     setLoading(true);
+    setError(null);
     try {
       const params = new URLSearchParams();
       if (search) params.set('search', search);
@@ -73,8 +78,13 @@ export default function ServicesPage() {
       params.set('dir', 'desc');
       const res = await api.get(`/services/providers/${cat.id}?${params}`);
       setProviders(res.data.providers || res.data || []);
-    } catch {
+      setError(null);
+    } catch (err: any) {
+      console.error('Error loading providers:', err?.response?.status, err?.message);
       setProviders([]);
+      setError(err?.response?.status === 401 
+        ? 'Connecte-toi d\'abord pour voir les prestataires' 
+        : 'Erreur lors du chargement des prestataires');
     } finally {
       setLoading(false);
     }
@@ -145,6 +155,17 @@ export default function ServicesPage() {
       {/* Content */}
       <div className="px-5 mt-2">
         <AnimatePresence mode="wait">
+          {/* Error Banner */}
+          {error && !selectedCat && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              className="mb-4 p-4 bg-red-500/15 border border-red-500/30 rounded-2xl"
+            >
+              <p className="text-sm text-red-300">{error}</p>
+            </motion.div>
+          )}
           {/* Categories Grid */}
           {!selectedCat ? (
             <motion.div
@@ -193,6 +214,17 @@ export default function ServicesPage() {
               exit={{ opacity: 0, x: 30 }}
               transition={{ type: 'spring', stiffness: 300, damping: 28 }}
             >
+              {/* Error Banner for Providers */}
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  className="mb-4 p-4 bg-red-500/15 border border-red-500/30 rounded-2xl"
+                >
+                  <p className="text-sm text-red-300">{error}</p>
+                </motion.div>
+              )}
               {/* Search + City Filter */}
               <div className="flex gap-2 mb-5">
                 <div className="relative flex-1">

@@ -97,8 +97,8 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} moroccan-bg text-gray-900 min-h-screen antialiased`}>
         <AuthProvider>
-          <div className="md:flex md:items-start md:justify-center md:min-h-screen md:bg-gradient-to-br md:from-emerald-50 md:via-white md:to-teal-50 md:py-4">
-            <div className="w-full max-w-[480px] mx-auto md:rounded-3xl md:shadow-2xl md:border md:border-gray-200/50 md:overflow-hidden md:min-h-[90vh] bg-gray-50 relative pb-20">
+          <div className="desktop-container">
+            <div className="w-full mx-auto md:rounded-3xl md:shadow-2xl md:border md:border-gray-200/50 md:overflow-hidden bg-gray-50 relative pb-20">
               <main>
                 {children}
               </main>
