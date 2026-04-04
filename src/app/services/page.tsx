@@ -115,7 +115,7 @@ export default function ServicesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-600 via-amber-600 to-red-600" />
@@ -178,13 +178,13 @@ export default function ServicesPage() {
               transition={{ duration: 0.25 }}
             >
               {loading ? (
-                <div className="grid grid-cols-4 gap-3">
+                <div className="grid grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-4">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
                     <div key={i} className="aspect-square rounded-2xl bg-white/80 animate-pulse" />
                   ))}
                 </div>
               ) : (
-                <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-4 gap-3">
+                <motion.div variants={stagger} initial="hidden" animate="visible" className="grid grid-cols-4 lg:grid-cols-6 gap-3 lg:gap-4">
                   {categories.map((cat, i) => {
                     const Icon = iconMap[cat.icon] || Wrench;
                     const colorSet = catColors[i % catColors.length];

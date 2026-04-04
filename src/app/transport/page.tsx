@@ -373,7 +373,7 @@ export default function TransportPage() {
     : 0;
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* ============ HEADER ============ */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700" />

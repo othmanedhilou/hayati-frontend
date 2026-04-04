@@ -168,7 +168,7 @@ export default function DocumentsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 pb-32">
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-gray-100 pb-32 lg:pb-8">
       {/* ── Header ── */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700" />
@@ -324,7 +324,7 @@ export default function DocumentsPage() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.92 }}
         onClick={() => setShowForm(true)}
-        className="fixed bottom-28 right-5 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl shadow-xl shadow-blue-500/30 z-40 flex items-center justify-center"
+        className="fixed bottom-28 right-5 lg:bottom-8 lg:right-8 w-14 h-14 bg-gradient-to-br from-blue-500 to-indigo-600 text-white rounded-2xl shadow-xl shadow-blue-500/30 z-40 flex items-center justify-center"
       >
         <Plus size={26} strokeWidth={2.5} />
       </motion.button>
@@ -334,7 +334,7 @@ export default function DocumentsPage() {
         {showForm && (
           <motion.div
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end justify-center"
+            className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-end lg:items-center justify-center"
             onClick={() => setShowForm(false)}
           >
             <motion.div
@@ -342,7 +342,7 @@ export default function DocumentsPage() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="bg-white rounded-t-[2rem] w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col"
+              className="bg-white rounded-t-[2rem] lg:rounded-3xl w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col lg:mb-auto lg:mt-auto"
               onClick={e => e.stopPropagation()}
             >
               {/* Handle bar */}

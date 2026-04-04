@@ -475,7 +475,7 @@ export default function HomePage() {
     hour < 12 ? 'Sbah lkhir' : hour < 18 ? 'Msa lkhir' : 'Msa lkhir';
 
   return (
-    <div className="min-h-screen bg-gray-50/50 pb-28">
+    <div className="min-h-screen bg-gray-50/50 pb-28 lg:pb-8">
       {/* ================================================================= */}
       {/* HERO SECTION                                                      */}
       {/* ================================================================= */}
@@ -550,7 +550,7 @@ export default function HomePage() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="flex gap-3 px-5 -mt-7 relative z-10"
+        className="flex gap-3 px-5 lg:px-8 -mt-7 relative z-10"
       >
         <StatCard
           label="Documents"
@@ -600,7 +600,7 @@ export default function HomePage() {
         variants={staggerContainer}
         initial="hidden"
         animate="show"
-        className="px-5 mt-8"
+        className="px-5 lg:px-8 mt-8"
       >
         <motion.h2
           variants={fadeUp}
@@ -608,7 +608,7 @@ export default function HomePage() {
         >
           Services
         </motion.h2>
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-4">
           {modules.map((mod) => (
             <ModuleCardPremium key={mod.href} {...mod} />
           ))}
@@ -623,7 +623,7 @@ export default function HomePage() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: '-40px' }}
-        className="px-5 mt-10"
+        className="px-5 lg:px-8 mt-10"
       >
         <motion.div variants={fadeUp} className="flex items-center gap-2 mb-4">
           <Sparkles size={20} className="text-emerald-500" />
@@ -666,7 +666,7 @@ export default function HomePage() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 260, damping: 20 }}
-        className="fixed bottom-28 right-5 z-50"
+        className="fixed bottom-28 right-5 lg:bottom-8 lg:right-8 z-50"
       >
         <Link href="/chat">
           <motion.button

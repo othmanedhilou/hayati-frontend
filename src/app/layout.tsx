@@ -102,10 +102,10 @@ export default function RootLayout({
       <body className={`${inter.className} moroccan-bg text-gray-900 min-h-screen antialiased`}>
         <AuthProvider>
           <SplashScreen />
-          <main className="max-w-2xl mx-auto pb-24">
+          <BottomNav />
+          <main className="max-w-2xl mx-auto pb-24 lg:ml-64 lg:max-w-4xl lg:pb-8">
             {children}
           </main>
-          <BottomNav />
         </AuthProvider>
       </body>
     </html>

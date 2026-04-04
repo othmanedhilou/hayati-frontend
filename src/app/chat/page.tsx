@@ -102,7 +102,7 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <div className="flex flex-col h-screen bg-gray-50 lg:h-[calc(100vh-0px)]">
       {/* Header */}
       <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-5 pt-14 pb-5 shadow-lg shadow-emerald-200/30 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -266,7 +266,7 @@ export default function ChatPage() {
       )}
 
       {/* Input */}
-      <div className="bg-white/90 backdrop-blur-xl border-t border-gray-100 px-4 py-3 pb-8">
+      <div className="bg-white/90 backdrop-blur-xl border-t border-gray-100 px-4 py-3 pb-8 lg:pb-4">
         <form onSubmit={handleSubmit} className="flex items-center gap-2.5 max-w-2xl mx-auto">
           <div className="flex-1 relative">
             <input

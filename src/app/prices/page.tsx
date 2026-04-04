@@ -156,7 +156,7 @@ export default function PricesPage() {
       : 'Comparer les Prix';
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-24">
+    <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* Header */}
       <div className="bg-gradient-to-br from-pink-500 via-rose-500 to-fuchsia-600 px-5 pt-14 pb-8 rounded-b-[32px] shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
@@ -513,7 +513,7 @@ export default function PricesPage() {
               )}
 
               {/* Category Grid */}
-              <div className="grid grid-cols-3 gap-3 mb-8">
+              <div className="grid grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4 mb-8">
                 {categories.map((cat, i) => (
                   <motion.button
                     key={cat.id}
