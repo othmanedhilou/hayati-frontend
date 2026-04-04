@@ -104,7 +104,7 @@ export default function ChatPage() {
   return (
     <div className="flex flex-col h-screen bg-gray-50 lg:h-[calc(100vh-0px)]">
       {/* Header */}
-      <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-5 pt-14 pb-5 shadow-lg shadow-emerald-200/30 relative overflow-hidden">
+      <div className="bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-500 px-5 pt-14 lg:pt-8 pb-5 shadow-lg shadow-emerald-200/30 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-1/2 w-48 h-16 bg-white/5 rounded-full translate-y-1/2" />
 

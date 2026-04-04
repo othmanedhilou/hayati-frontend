@@ -158,7 +158,7 @@ export default function PricesPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-br from-pink-500 via-rose-500 to-fuchsia-600 px-5 pt-14 pb-8 rounded-b-[32px] shadow-lg relative overflow-hidden">
+      <div className="bg-gradient-to-br from-pink-500 via-rose-500 to-fuchsia-600 px-5 pt-14 lg:pt-8 pb-8 rounded-b-[32px] shadow-lg relative overflow-hidden">
         <div className="absolute top-0 right-0 w-40 h-40 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/2" />
         <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2" />
 

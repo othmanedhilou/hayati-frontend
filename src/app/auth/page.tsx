@@ -50,7 +50,7 @@ export default function AuthPage() {
     return (
       <div className="min-h-screen bg-gray-50">
         {/* Profile Header */}
-        <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-6 pt-16 pb-20 relative overflow-hidden">
+        <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-6 pt-16 lg:pt-8 pb-20 lg:pb-14 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-48 h-48 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
           <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3" />
           <div className="absolute top-1/2 right-1/4 w-16 h-16 bg-white/5 rounded-full" />
@@ -176,7 +176,7 @@ export default function AuthPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Header */}
-      <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-6 pt-20 pb-16 rounded-b-[40px] relative overflow-hidden">
+      <div className="bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-6 pt-20 lg:pt-10 pb-16 rounded-b-[40px] relative overflow-hidden">
         <div className="absolute top-0 right-0 w-56 h-56 bg-white/5 rounded-full -translate-y-1/2 translate-x-1/3" />
         <div className="absolute bottom-0 left-0 w-40 h-40 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/3" />
         <div className="absolute top-1/3 right-1/4 w-20 h-20 bg-white/5 rounded-full" />

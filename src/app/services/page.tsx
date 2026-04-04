@@ -117,12 +117,12 @@ export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* Header */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden lg:rounded-2xl lg:mx-0 lg:mt-2">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-600 via-amber-600 to-red-600" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(251,146,60,0.4),transparent_60%)]" />
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
 
-        <div className="relative px-5 pt-14 pb-8">
+        <div className="relative px-5 pt-14 lg:pt-8 pb-8">
           <div className="flex items-center gap-3">
             {selectedCat ? (
               <motion.button

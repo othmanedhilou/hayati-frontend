@@ -483,7 +483,7 @@ export default function HomePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 pt-14 pb-16 overflow-hidden"
+        className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 pt-14 lg:pt-8 pb-16 lg:pb-12 overflow-hidden lg:rounded-2xl lg:mt-2 lg:mx-0"
       >
         <FloatingShapes />
 

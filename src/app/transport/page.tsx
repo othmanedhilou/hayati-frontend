@@ -375,7 +375,7 @@ export default function TransportPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-24 lg:pb-8">
       {/* ============ HEADER ============ */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden lg:rounded-2xl lg:mx-0 lg:mt-2">
         <div className="absolute inset-0 bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-700" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.4),transparent_60%)]" />
         {/* Decorative shapes */}
@@ -383,7 +383,7 @@ export default function TransportPage() {
         <div className="absolute bottom-12 left-0 w-20 h-20 bg-white/5 rounded-full translate-x-[-50%]" />
         <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
 
-        <div className="relative px-5 pt-14 pb-6">
+        <div className="relative px-5 pt-14 lg:pt-8 pb-6">
           <div className="flex items-center gap-3 mb-5">
             <Link href="/">
               <motion.div
