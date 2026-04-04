@@ -49,8 +49,8 @@ export const metadata: Metadata = {
   manifest: "/manifest.json",
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "32x32" },
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },
@@ -93,6 +93,8 @@ export default function RootLayout({
   return (
     <html lang="fr" dir="ltr" className={inter.variable}>
       <head>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
         {/* Arabic font loaded via Google Fonts link for mixed content */}
         <link
           href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;500;600;700&display=swap"
