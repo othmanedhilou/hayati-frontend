@@ -247,6 +247,7 @@ body {
 
 .moroccan-bg {
   position: relative;
+  background-color: #f8faf9;
 }
 
 .moroccan-bg::before {
@@ -254,20 +255,13 @@ body {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  z-index: -1;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0L60 15L60 45L30 60L0 45L0 15Z' fill='none' stroke='%23059669' stroke-width='1'/%3E%3Cpath d='M30 10L50 20L50 40L30 50L10 40L10 20Z' fill='none' stroke='%23059669' stroke-width='0.5'/%3E%3Ccircle cx='30' cy='30' r='5' fill='none' stroke='%23059669' stroke-width='0.5'/%3E%3C/svg%3E");
-  background-size: 60px 60px;
+  z-index: 0;
+  opacity: 0.18;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cpath d='M50 5L91 27.5V72.5L50 95L9 72.5V27.5Z' stroke='%23059669' stroke-width='1'/%3E%3Cpath d='M50 18L78 33V67L50 82L22 67V33Z' stroke='%23059669' stroke-width='0.7'/%3E%3Cpath d='M50 31L65 39.5V60.5L50 69L35 60.5V39.5Z' stroke='%23059669' stroke-width='0.5'/%3E%3Ccircle cx='50' cy='50' r='8' stroke='%23059669' stroke-width='0.6'/%3E%3Ccircle cx='50' cy='50' r='3' fill='%23059669' fill-opacity='0.12'/%3E%3Cpath d='M50 42L58 50L50 58L42 50Z' stroke='%23059669' stroke-width='0.5'/%3E%3Cpath d='M50 5L50 18' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M50 82L50 95' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M9 27.5L22 33' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M91 27.5L78 33' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M9 72.5L22 67' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M91 72.5L78 67' stroke='%23059669' stroke-width='0.4'/%3E%3Cpath d='M50 5L9 27.5' stroke='%2310b981' stroke-width='0.2' stroke-dasharray='2 4'/%3E%3Cpath d='M50 5L91 27.5' stroke='%2310b981' stroke-width='0.2' stroke-dasharray='2 4'/%3E%3Cpath d='M50 95L9 72.5' stroke='%2310b981' stroke-width='0.2' stroke-dasharray='2 4'/%3E%3Cpath d='M50 95L91 72.5' stroke='%2310b981' stroke-width='0.2' stroke-dasharray='2 4'/%3E%3Ccircle cx='50' cy='5' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3Ccircle cx='50' cy='95' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3Ccircle cx='9' cy='27.5' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3Ccircle cx='91' cy='27.5' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3Ccircle cx='9' cy='72.5' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3Ccircle cx='91' cy='72.5' r='1.5' fill='%23059669' fill-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 100px 100px;
 }
 
-/* Desktop sidebar layout */
-@media (min-width: 768px) {
-  .desktop-container {
-    max-width: 480px;
-    margin: 0 auto;
-    min-height: 100vh;
-    position: relative;
-    box-shadow: 0 0 80px rgba(0,0,0,0.08);
-    background: var(--background);
-  }
+.moroccan-bg > * {
+  position: relative;
+  z-index: 1;
 }

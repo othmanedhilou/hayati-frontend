@@ -29,7 +29,7 @@ const catColors = [
 interface Category { id: number; name: string; name_ar: string; icon: string; slug: string; }
 interface Provider {
   id: number; name: string; phone: string; description: string; city: string;
-  avg_rating: number; total_reviews: number; price_min: number; price_max: number;
+  avg_rating: number | string; total_reviews: number; price_min: number | string; price_max: number | string;
   verified: boolean; available: boolean;
 }
 
@@ -93,22 +93,24 @@ export default function ServicesPage() {
     setCityOpen(false);
   };
 
-  const renderStars = (rating: number) =>
-    Array.from({ length: 5 }, (_, i) => (
+  const renderStars = (rating: number | string) => {
+    const r = typeof rating === 'string' ? parseFloat(rating) : (rating || 0);
+    return Array.from({ length: 5 }, (_, i) => (
       <Star
         key={i}
         size={13}
-        className={i < Math.round(rating) ? 'text-amber-400 fill-amber-400' : 'text-gray-700'}
+        className={i < Math.round(r) ? 'text-amber-400 fill-amber-400' : 'text-gray-600/50'}
       />
     ));
+  };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white pb-8">
+    <div className="min-h-screen bg-gray-50 pb-24">
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-orange-600 via-amber-600 to-red-600" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(251,146,60,0.4),transparent_60%)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-950 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
 
         <div className="relative px-5 pt-14 pb-8">
           <div className="flex items-center gap-3">
@@ -116,17 +118,17 @@ export default function ServicesPage() {
               <motion.button
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
                 onClick={goBack}
-                className="p-2.5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10"
+                className="p-2.5 bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200"
               >
-                <ChevronLeft size={20} className="text-white" />
+                <ChevronLeft size={20} className="text-gray-900" />
               </motion.button>
             ) : (
               <Link href="/">
                 <motion.div
                   whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                  className="p-2.5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10"
+                  className="p-2.5 bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200"
                 >
-                  <ChevronLeft size={20} className="text-white" />
+                  <ChevronLeft size={20} className="text-gray-900" />
                 </motion.div>
               </Link>
             )}
@@ -157,7 +159,7 @@ export default function ServicesPage() {
               {loading ? (
                 <div className="grid grid-cols-4 gap-3">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
-                    <div key={i} className="aspect-square rounded-2xl bg-white/5 animate-pulse" />
+                    <div key={i} className="aspect-square rounded-2xl bg-white/80 animate-pulse" />
                   ))}
                 </div>
               ) : (
@@ -172,12 +174,12 @@ export default function ServicesPage() {
                         whileHover={{ scale: 1.06, y: -3 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={() => loadProviders(cat)}
-                        className={`flex flex-col items-center justify-center p-3 rounded-2xl border backdrop-blur-xl bg-white/5 ${colorSet.border} hover:bg-white/8 transition-all aspect-square`}
+                        className={`flex flex-col items-center justify-center p-3 rounded-2xl border backdrop-blur-xl bg-white/80 ${colorSet.border} hover:bg-white/8 transition-all aspect-square`}
                       >
                         <div className={`p-2.5 rounded-xl ${colorSet.bg} mb-2`}>
                           <Icon size={22} className={colorSet.text} />
                         </div>
-                        <span className="text-[11px] font-semibold text-white text-center leading-tight">{cat.name}</span>
+                        <span className="text-[11px] font-semibold text-gray-900 text-center leading-tight">{cat.name}</span>
                       </motion.button>
                     );
                   })}
@@ -202,15 +204,15 @@ export default function ServicesPage() {
                     placeholder="Rechercher..."
                     value={search}
                     onChange={e => setSearch(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3.5 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 text-sm text-white placeholder-gray-500 outline-none focus:border-orange-500/50 transition-colors"
+                    className="w-full pl-10 pr-4 py-3.5 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 text-sm text-gray-900 placeholder-gray-500 outline-none focus:border-orange-500/50 transition-colors"
                   />
                 </div>
                 <div className="relative">
                   <motion.button
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setCityOpen(!cityOpen)}
-                    className={`h-full px-4 bg-white/5 backdrop-blur-xl rounded-2xl border text-sm font-medium transition-all whitespace-nowrap ${
-                      city ? 'border-orange-500/40 text-orange-400' : 'border-white/10 text-gray-400'
+                    className={`h-full px-4 bg-white/80 backdrop-blur-xl rounded-2xl border text-sm font-medium transition-all whitespace-nowrap ${
+                      city ? 'border-orange-500/40 text-orange-400' : 'border-gray-200 text-gray-500'
                     }`}
                   >
                     <MapPin size={14} className="inline mr-1.5" />
@@ -223,12 +225,12 @@ export default function ServicesPage() {
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: -8, scale: 0.96 }}
                         transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                        className="absolute z-30 top-full mt-2 right-0 w-44 bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-white/10 p-2 shadow-2xl"
+                        className="absolute z-30 top-full mt-2 right-0 w-44 bg-white/95 backdrop-blur-2xl rounded-2xl border border-gray-200 p-2 shadow-2xl"
                       >
                         <button
                           onClick={() => { setCity(''); setCityOpen(false); }}
                           className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-all ${
-                            !city ? 'bg-orange-500/20 text-orange-400' : 'text-gray-400 hover:bg-white/5'
+                            !city ? 'bg-orange-500/20 text-orange-400' : 'text-gray-500 hover:bg-white/80'
                           }`}
                         >
                           Toutes les villes
@@ -238,7 +240,7 @@ export default function ServicesPage() {
                             key={c}
                             onClick={() => { setCity(c); setCityOpen(false); }}
                             className={`w-full text-left px-3 py-2 rounded-xl text-sm transition-all ${
-                              city === c ? 'bg-orange-500/20 text-orange-400' : 'text-gray-400 hover:bg-white/5'
+                              city === c ? 'bg-orange-500/20 text-orange-400' : 'text-gray-500 hover:bg-white/80'
                             }`}
                           >
                             {c}
@@ -254,7 +256,7 @@ export default function ServicesPage() {
               {loading ? (
                 <div className="space-y-3">
                   {[1, 2, 3].map(i => (
-                    <div key={i} className="h-32 rounded-2xl bg-white/5 animate-pulse" />
+                    <div key={i} className="h-32 rounded-2xl bg-white/80 animate-pulse" />
                   ))}
                 </div>
               ) : providers.length > 0 ? (
@@ -263,12 +265,12 @@ export default function ServicesPage() {
                     <motion.div
                       key={p.id}
                       variants={fadeUp}
-                      className="relative p-4 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl hover:bg-white/8 transition-all"
+                      className="relative p-4 rounded-2xl border border-gray-200 bg-white/80 backdrop-blur-xl hover:bg-white/8 transition-all"
                     >
                       <div className="flex justify-between items-start mb-3">
                         <div>
                           <div className="flex items-center gap-2">
-                            <h3 className="font-bold text-sm text-white">{p.name}</h3>
+                            <h3 className="font-bold text-sm text-gray-900">{p.name}</h3>
                             {p.verified && (
                               <BadgeCheck size={16} className="text-emerald-400" />
                             )}
@@ -276,13 +278,13 @@ export default function ServicesPage() {
                           <div className="flex items-center gap-1 mt-1.5">
                             {renderStars(p.avg_rating)}
                             <span className="text-xs text-gray-500 ml-1.5">
-                              {p.avg_rating?.toFixed(1)} ({p.total_reviews})
+                              {parseFloat(String(p.avg_rating || 0)).toFixed(1)} ({p.total_reviews})
                             </span>
                           </div>
                         </div>
                         <div className="text-right">
                           <span className="font-bold text-sm text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-amber-400">
-                            {p.price_min}-{p.price_max} DH
+                            {Math.round(Number(p.price_min))}-{Math.round(Number(p.price_max))} DH
                           </span>
                         </div>
                       </div>
@@ -315,7 +317,7 @@ export default function ServicesPage() {
                   <div className="w-24 h-24 bg-orange-500/10 rounded-3xl flex items-center justify-center mb-6 border border-orange-500/20">
                     <SearchX size={40} className="text-orange-400" />
                   </div>
-                  <h3 className="font-bold text-lg text-white mb-2">Aucun prestataire</h3>
+                  <h3 className="font-bold text-lg text-gray-900 mb-2">Aucun prestataire</h3>
                   <p className="text-sm text-gray-500 text-center max-w-[250px]">
                     Aucun prestataire disponible dans cette categorie. Essayez une autre ville.
                   </p>

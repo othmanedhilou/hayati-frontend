@@ -157,7 +157,7 @@ export default function MoneyPage() {
           </div>
           <h2 className="text-xl font-bold text-gray-900 mb-2">Connexion requise</h2>
           <p className="text-gray-500 text-sm mb-6">Connecte-toi pour acceder a ton budget.</p>
-          <button onClick={() => router.push('/login')}
+          <button onClick={() => router.push('/auth')}
             className="w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-600 text-white rounded-2xl font-semibold shadow-lg shadow-emerald-500/25">
             Se connecter
           </button>
@@ -347,7 +347,7 @@ export default function MoneyPage() {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.92 }}
         onClick={() => setShowForm(true)}
-        className="fixed bottom-24 right-5 w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl shadow-xl shadow-emerald-500/30 z-40 flex items-center justify-center"
+        className="fixed bottom-28 right-5 w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-600 text-white rounded-2xl shadow-xl shadow-emerald-500/30 z-40 flex items-center justify-center"
       >
         <Plus size={26} strokeWidth={2.5} />
       </motion.button>
@@ -365,15 +365,15 @@ export default function MoneyPage() {
               animate={{ y: 0 }}
               exit={{ y: '100%' }}
               transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="bg-white rounded-t-[2rem] w-full max-w-lg shadow-2xl"
+              className="bg-white rounded-t-[2rem] w-full max-w-lg shadow-2xl max-h-[90vh] flex flex-col"
               onClick={e => e.stopPropagation()}
             >
               {/* Handle bar */}
-              <div className="flex justify-center pt-3 pb-1">
+              <div className="flex justify-center pt-3 pb-1 shrink-0">
                 <div className="w-10 h-1 bg-gray-200 rounded-full" />
               </div>
 
-              <div className="px-6 pb-8 pt-2">
+              <div className="px-6 pb-10 pt-2 overflow-y-auto">
                 <div className="flex justify-between items-center mb-5">
                   <h2 className="text-lg font-bold text-gray-900">Nouvelle transaction</h2>
                   <button onClick={() => setShowForm(false)}

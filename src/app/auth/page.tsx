@@ -399,26 +399,17 @@ export default function AuthPage() {
             </motion.button>
           </form>
 
-          {/* Demo Credentials */}
+          {/* Tagline */}
           {isLogin && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
-              className="mt-5 bg-emerald-50 rounded-2xl p-4 border border-emerald-100"
+              className="mt-5 text-center"
             >
-              <p className="text-center text-xs text-emerald-600 font-medium mb-1">
-                Compte de demonstration
+              <p className="text-xs text-gray-400">
+                En continuant, vous acceptez nos conditions d'utilisation
               </p>
-              <div className="flex items-center justify-center gap-3 text-sm">
-                <code className="bg-white text-emerald-700 px-2.5 py-1 rounded-lg text-xs font-mono border border-emerald-100">
-                  demo@hayati.ma
-                </code>
-                <span className="text-emerald-300">/</span>
-                <code className="bg-white text-emerald-700 px-2.5 py-1 rounded-lg text-xs font-mono border border-emerald-100">
-                  password
-                </code>
-              </div>
             </motion.div>
           )}
         </div>

@@ -10,7 +10,7 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const APP_URL = "https://hayati.ma";
+const APP_URL = "https://hayati.cfd";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -47,7 +47,10 @@ export const metadata: Metadata = {
   },
   manifest: "/manifest.json",
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "32x32" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
@@ -96,15 +99,55 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} moroccan-bg text-gray-900 min-h-screen antialiased`}>
-        <AuthProvider>
-          <div className="md:flex md:items-start md:justify-center md:min-h-screen md:bg-gradient-to-br md:from-emerald-50 md:via-white md:to-teal-50 md:py-4">
-            <div className="w-full max-w-[480px] mx-auto md:rounded-3xl md:shadow-2xl md:border md:border-gray-200/50 md:overflow-hidden md:min-h-[90vh] bg-gray-50 relative pb-20">
-              <main>
-                {children}
-              </main>
-              <BottomNav />
-            </div>
+        {/* Splash screen */}
+        <div id="splash-screen" style={{
+          position: 'fixed', inset: 0, zIndex: 9999,
+          background: 'linear-gradient(135deg, #f5f0e8 0%, #eae5da 50%, #f0ebe2 100%)',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          transition: 'opacity 0.6s ease, visibility 0.6s ease',
+        }}>
+          <img
+            src="/logo.png"
+            alt="HAYATI"
+            style={{ height: '200px', animation: 'splashPulse 1.8s ease-in-out infinite' }}
+          />
+          <div style={{
+            marginTop: '32px', width: '48px', height: '4px', borderRadius: '2px',
+            background: '#e0dbd2', overflow: 'hidden', position: 'relative',
+          }}>
+            <div style={{
+              position: 'absolute', inset: 0, background: 'linear-gradient(90deg, #059669, #0d9488)',
+              borderRadius: '2px', animation: 'splashBar 1.2s ease-in-out infinite',
+            }} />
           </div>
+        </div>
+        <style dangerouslySetInnerHTML={{ __html: `
+          @keyframes splashPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.04); opacity: 0.9; }
+          }
+          @keyframes splashBar {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(200%); }
+          }
+        `}} />
+        <script dangerouslySetInnerHTML={{ __html: `
+          window.addEventListener('load', function() {
+            setTimeout(function() {
+              var s = document.getElementById('splash-screen');
+              if (s) { s.style.opacity = '0'; s.style.visibility = 'hidden'; }
+            }, 1200);
+            setTimeout(function() {
+              var s = document.getElementById('splash-screen');
+              if (s) s.remove();
+            }, 1800);
+          });
+        `}} />
+        <AuthProvider>
+          <main className="max-w-2xl mx-auto pb-24">
+            {children}
+          </main>
+          <BottomNav />
         </AuthProvider>
       </body>
     </html>

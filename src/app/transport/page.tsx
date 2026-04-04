@@ -94,26 +94,26 @@ export default function TransportPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white pb-8">
+    <div className="min-h-screen bg-gray-50 pb-24">
       {/* Header */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-violet-600 to-indigo-700" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(168,85,247,0.4),transparent_60%)]" />
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-950 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-gray-50 to-transparent" />
 
         <div className="relative px-5 pt-14 pb-10">
           <div className="flex items-center gap-3 mb-6">
             <Link href="/">
               <motion.div
                 whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}
-                className="p-2.5 bg-white/10 backdrop-blur-xl rounded-2xl border border-white/10"
+                className="p-2.5 bg-white/60 backdrop-blur-xl rounded-2xl border border-gray-200"
               >
-                <ChevronLeft size={20} className="text-white" />
+                <ChevronLeft size={20} className="text-gray-900" />
               </motion.div>
             </Link>
             <div>
               <h1 className="text-2xl font-bold tracking-tight">Transport</h1>
-              <p className="text-purple-200 text-sm mt-0.5">Comparez les meilleurs trajets</p>
+              <p className="text-purple-200 text-sm mt-0.5">Comparez les prix et durees</p>
             </div>
           </div>
 
@@ -126,8 +126,8 @@ export default function TransportPage() {
                 onClick={() => { setOriginOpen(!originOpen); setDestOpen(false); }}
                 className={`w-full flex items-center gap-3 px-5 py-4 rounded-2xl border backdrop-blur-xl transition-all ${
                   origin
-                    ? 'bg-white/15 border-white/20 text-white'
-                    : 'bg-white/10 border-white/10 text-purple-200'
+                    ? 'bg-white/90 border-purple-300/40 text-gray-900'
+                    : 'bg-white/60 border-white/30 text-purple-100'
                 }`}
               >
                 <div className="p-1.5 bg-purple-400/20 rounded-lg">
@@ -142,7 +142,7 @@ export default function TransportPage() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.96 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="absolute z-30 top-full mt-2 left-0 right-0 bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-white/10 p-2 shadow-2xl"
+                    className="absolute z-30 top-full mt-2 left-0 right-0 bg-white/95 backdrop-blur-2xl rounded-2xl border border-gray-200 p-2 shadow-2xl"
                   >
                     <div className="flex flex-wrap gap-2">
                       {cities.map(c => (
@@ -152,7 +152,7 @@ export default function TransportPage() {
                           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                             origin === c
                               ? 'bg-purple-500 text-white shadow-lg shadow-purple-500/30'
-                              : 'bg-white/10 text-gray-300 hover:bg-white/15'
+                              : 'bg-white/60 text-gray-600 hover:bg-white/70'
                           }`}
                         >
                           {c}
@@ -171,8 +171,8 @@ export default function TransportPage() {
                 onClick={() => { setDestOpen(!destOpen); setOriginOpen(false); }}
                 className={`w-full flex items-center gap-3 px-5 py-4 rounded-2xl border backdrop-blur-xl transition-all ${
                   destination
-                    ? 'bg-white/15 border-white/20 text-white'
-                    : 'bg-white/10 border-white/10 text-purple-200'
+                    ? 'bg-white/90 border-indigo-300/40 text-gray-900'
+                    : 'bg-white/60 border-white/30 text-purple-100'
                 }`}
               >
                 <div className="p-1.5 bg-indigo-400/20 rounded-lg">
@@ -187,7 +187,7 @@ export default function TransportPage() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -8, scale: 0.96 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-                    className="absolute z-30 top-full mt-2 left-0 right-0 bg-gray-900/95 backdrop-blur-2xl rounded-2xl border border-white/10 p-2 shadow-2xl"
+                    className="absolute z-30 top-full mt-2 left-0 right-0 bg-white/95 backdrop-blur-2xl rounded-2xl border border-gray-200 p-2 shadow-2xl"
                   >
                     <div className="flex flex-wrap gap-2">
                       {cities.filter(c => c !== origin).map(c => (
@@ -197,7 +197,7 @@ export default function TransportPage() {
                           className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
                             destination === c
                               ? 'bg-indigo-500 text-white shadow-lg shadow-indigo-500/30'
-                              : 'bg-white/10 text-gray-300 hover:bg-white/15'
+                              : 'bg-white/60 text-gray-600 hover:bg-white/70'
                           }`}
                         >
                           {c}
@@ -236,7 +236,7 @@ export default function TransportPage() {
         {loading && (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-24 rounded-2xl bg-white/5 animate-pulse" />
+              <div key={i} className="h-24 rounded-2xl bg-white/80 animate-pulse" />
             ))}
           </div>
         )}
@@ -273,7 +273,7 @@ export default function TransportPage() {
                       className={`relative p-4 rounded-2xl border backdrop-blur-xl transition-all ${
                         isCheapest
                           ? 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-500/30 shadow-lg shadow-purple-500/10'
-                          : 'bg-white/5 border-white/10 hover:bg-white/8'
+                          : 'bg-white/80 border-gray-200 hover:bg-white/8'
                       }`}
                     >
                       {/* Badge */}
@@ -296,7 +296,7 @@ export default function TransportPage() {
                           <Icon size={24} className={config.color} />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="font-bold text-sm capitalize text-white">{opt.type}</h3>
+                          <h3 className="font-bold text-sm capitalize text-gray-900">{opt.type}</h3>
                           {opt.provider_name && (
                             <p className="text-xs text-gray-500 truncate mt-0.5">{opt.provider_name}</p>
                           )}
@@ -327,7 +327,7 @@ export default function TransportPage() {
               <div className="w-24 h-24 bg-purple-500/10 rounded-3xl flex items-center justify-center mb-6 border border-purple-500/20">
                 <Route size={40} className="text-purple-400" />
               </div>
-              <h3 className="font-bold text-lg text-white mb-2">Aucun trajet trouve</h3>
+              <h3 className="font-bold text-lg text-gray-900 mb-2">Aucun trajet trouve</h3>
               <p className="text-sm text-gray-500 text-center max-w-[250px]">
                 Aucune option de transport disponible pour cette route. Essayez une autre destination.
               </p>
@@ -342,7 +342,7 @@ export default function TransportPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
             >
-              <h2 className="font-bold text-sm text-gray-400 uppercase tracking-wider mb-4">Trajets populaires</h2>
+              <h2 className="font-bold text-sm text-gray-500 uppercase tracking-wider mb-4">Trajets populaires</h2>
               <div className="flex gap-3 overflow-x-auto pb-4 -mx-5 px-5 scrollbar-none">
                 {routes.map((r, i) => (
                   <motion.button
@@ -353,7 +353,7 @@ export default function TransportPage() {
                     whileHover={{ scale: 1.03, y: -2 }}
                     whileTap={{ scale: 0.97 }}
                     onClick={() => loadRoute(r.id)}
-                    className="shrink-0 w-56 bg-white/5 backdrop-blur-xl rounded-2xl border border-white/10 p-4 text-left hover:bg-white/8 hover:border-purple-500/30 transition-all group"
+                    className="shrink-0 w-56 bg-white/80 backdrop-blur-xl rounded-2xl border border-gray-200 p-4 text-left hover:bg-white/8 hover:border-purple-500/30 transition-all group"
                   >
                     <div className="flex items-center gap-2 mb-3">
                       <div className="p-1.5 bg-purple-500/15 rounded-lg">
@@ -362,9 +362,9 @@ export default function TransportPage() {
                       <span className="text-xs text-gray-500 font-medium">{r.distance_km} km</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-semibold text-white">{r.origin}</span>
+                      <span className="text-sm font-semibold text-gray-900">{r.origin}</span>
                       <ArrowRight size={14} className="text-purple-400 group-hover:translate-x-0.5 transition-transform" />
-                      <span className="text-sm font-semibold text-white">{r.destination}</span>
+                      <span className="text-sm font-semibold text-gray-900">{r.destination}</span>
                     </div>
                     {r.options && (
                       <p className="text-xs text-gray-500 mt-2">{r.options.length} options disponibles</p>

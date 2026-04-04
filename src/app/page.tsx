@@ -82,7 +82,7 @@ const modules = [
     color: 'from-purple-500 to-purple-600',
     bgLight: 'bg-purple-50',
     iconColor: 'text-purple-600',
-    description: 'Comparer taxi, train, bus',
+    description: 'Comparer prix et trajets',
   },
   {
     title: 'Budget',
@@ -214,9 +214,9 @@ function StatCard({
   return (
     <motion.div
       variants={scaleIn}
-      className="flex-1 bg-white/80 backdrop-blur-md rounded-2xl p-3 shadow-sm border border-gray-100/80"
+      className="flex-1 bg-white/90 backdrop-blur-lg rounded-2xl p-3.5 shadow-md shadow-gray-200/40 border border-white/80"
     >
-      <div className={`w-8 h-8 rounded-xl flex items-center justify-center mb-2 ${color}`}>
+      <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-2 ${color} shadow-sm`}>
         <Icon size={16} className="text-white" />
       </div>
       {loading ? (
@@ -249,24 +249,26 @@ function ModuleCardPremium({
         variants={fadeUp}
         whileHover={{ y: -4, scale: 1.02 }}
         whileTap={{ scale: 0.97 }}
-        className="bg-white/70 backdrop-blur-lg rounded-2xl p-4 shadow-sm border border-white/60 hover:shadow-lg transition-shadow relative overflow-hidden group cursor-pointer"
+        className="bg-white/80 backdrop-blur-lg rounded-3xl p-4 shadow-sm border border-gray-100/80 hover:shadow-xl hover:border-gray-200/80 transition-all relative overflow-hidden group cursor-pointer"
       >
         {/* Gradient accent line at top */}
-        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${color} opacity-80 group-hover:opacity-100 transition-opacity`} />
+        <div className={`absolute top-0 left-0 right-0 h-1 bg-gradient-to-r ${color} opacity-0 group-hover:opacity-100 transition-opacity`} />
+        {/* Subtle gradient glow on hover */}
+        <div className={`absolute -bottom-8 -right-8 w-24 h-24 bg-gradient-to-br ${color} opacity-0 group-hover:opacity-[0.06] rounded-full blur-2xl transition-opacity`} />
 
-        <div className={`w-11 h-11 rounded-xl ${bgLight} flex items-center justify-center mb-3`}>
+        <div className={`w-12 h-12 rounded-2xl ${bgLight} flex items-center justify-center mb-3 shadow-sm`}>
           <Icon size={22} className={iconColor} />
         </div>
 
         <div className="flex items-baseline gap-2 mb-1">
           <h3 className="font-bold text-gray-900 text-[15px]">{title}</h3>
-          <span className="text-xs text-gray-400 font-arabic">{titleAr}</span>
+          <span className="text-[10px] text-gray-400 font-arabic">{titleAr}</span>
         </div>
 
         <p className="text-xs text-gray-500 leading-relaxed">{description}</p>
 
-        <div className={`absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity`}>
-          <ChevronRight size={16} className="text-gray-400" />
+        <div className="absolute bottom-3 right-3 w-7 h-7 rounded-lg bg-gray-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+          <ChevronRight size={14} className="text-gray-400" />
         </div>
       </motion.div>
     </Link>
@@ -360,7 +362,7 @@ export default function HomePage() {
           title: 'Connecte-toi pour voir tes insights',
           subtitle: 'Alertes documents, promos et plus encore',
           icon: Shield,
-          href: '/auth/login',
+          href: '/auth',
         },
       ]);
       return;
@@ -481,9 +483,17 @@ export default function HomePage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6 }}
-        className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-600 px-5 pt-12 pb-14 overflow-hidden"
+        className="relative bg-gradient-to-br from-emerald-500 via-emerald-600 to-teal-700 px-5 pt-14 pb-16 overflow-hidden"
       >
         <FloatingShapes />
+
+        {/* Moroccan arch silhouette at bottom */}
+        <div className="absolute bottom-0 left-0 right-0">
+          <svg viewBox="0 0 400 40" className="w-full h-10 text-gray-50" fill="currentColor" preserveAspectRatio="none">
+            <path d="M0 40 L0 20 Q100 0 200 20 Q300 0 400 20 L400 40 Z" opacity="0.5" />
+            <path d="M0 40 L0 30 Q100 10 200 30 Q300 10 400 30 L400 40 Z" />
+          </svg>
+        </div>
 
         <div className="relative z-10">
           <motion.div
@@ -491,11 +501,14 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.15, type: 'spring', stiffness: 200 }}
           >
-            <p className="text-emerald-100 text-sm font-medium mb-1">
-              {timeGreeting} 🌟
-            </p>
-            <h1 className="text-[28px] font-extrabold text-white leading-tight">
-              Salam, {user?.name?.split(' ')[0] || 'Bienvenue'} 👋
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-2 h-2 rounded-full bg-green-300 animate-pulse" />
+              <p className="text-emerald-100 text-sm font-medium">
+                {timeGreeting}
+              </p>
+            </div>
+            <h1 className="text-3xl font-extrabold text-white leading-tight tracking-tight">
+              Salam, {user?.name?.split(' ')[0] || 'Bienvenue'}
             </h1>
           </motion.div>
 
@@ -503,10 +516,10 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-            className="text-emerald-50 text-lg mt-2 font-arabic"
+            className="text-emerald-50/90 text-lg mt-2 font-arabic"
             dir="rtl"
           >
-            حياتك أسهل ✨
+            حياتك أسهل
           </motion.p>
 
           {!isAuthenticated && !authLoading && (
@@ -515,11 +528,11 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.45 }}
             >
-              <Link href="/auth/login">
+              <Link href="/auth">
                 <motion.button
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.97 }}
-                  className="mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-colors border border-white/20"
+                  className="mt-5 inline-flex items-center gap-2 bg-white text-emerald-700 font-bold text-sm px-6 py-3 rounded-2xl shadow-lg shadow-emerald-900/20 hover:shadow-xl transition-all"
                 >
                   <LogIn size={16} />
                   Se connecter
@@ -653,7 +666,7 @@ export default function HomePage() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 0.8, type: 'spring', stiffness: 260, damping: 20 }}
-        className="fixed bottom-24 right-5 z-50"
+        className="fixed bottom-28 right-5 z-50"
       >
         <Link href="/chat">
           <motion.button

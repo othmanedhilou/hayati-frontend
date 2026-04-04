@@ -266,15 +266,15 @@ export default function ChatPage() {
       )}
 
       {/* Input */}
-      <div className="bg-white/80 backdrop-blur-lg border-t border-gray-200/60 px-4 py-3 pb-6">
-        <form onSubmit={handleSubmit} className="flex items-center gap-2.5">
+      <div className="bg-white/90 backdrop-blur-xl border-t border-gray-100 px-4 py-3 pb-8">
+        <form onSubmit={handleSubmit} className="flex items-center gap-2.5 max-w-2xl mx-auto">
           <div className="flex-1 relative">
             <input
               type="text"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Kteb message dyalek..."
-              className="w-full px-5 py-3.5 bg-gray-100 rounded-2xl border border-gray-200/60 outline-none focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-100 text-sm transition-all placeholder:text-gray-400"
+              className="w-full px-5 py-3.5 bg-gray-50 rounded-2xl border-2 border-gray-100 outline-none focus:border-emerald-400 focus:bg-white focus:ring-2 focus:ring-emerald-50 text-sm transition-all placeholder:text-gray-400"
               disabled={loading}
             />
           </div>

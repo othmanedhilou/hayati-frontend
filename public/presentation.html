@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAYATI - Presentation ETH 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', sans-serif; background: #0a0a0a; color: #fff; overflow: hidden; cursor: default; }
+
+  /* ── Slides ── */
+  .slide {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    padding: 50px 70px;
+    position: relative;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; flex-direction: column; justify-content: center; animation: fadeIn 0.45s ease-out; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* ── Zellige BG ── */
+  .slide::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cpath d='M50 5L91 27.5V72.5L50 95L9 72.5V27.5Z' stroke='%2310b981' stroke-width='1'/%3E%3Cpath d='M50 18L78 33V67L50 82L22 67V33Z' stroke='%2310b981' stroke-width='0.6'/%3E%3Ccircle cx='50' cy='50' r='8' stroke='%2310b981' stroke-width='0.4'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100px 100px;
+    pointer-events: none; z-index: 0;
+  }
+  .slide > * { position: relative; z-index: 1; }
+
+  /* ── Gradients ── */
+  .bg-dark   { background: linear-gradient(160deg, #0f1117 0%, #1a1d2b 100%); }
+  .bg-green  { background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0891b2 100%); }
+  .bg-deep   { background: linear-gradient(135deg, #111827 0%, #1e293b 100%); }
+  .bg-indigo { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); }
+  .bg-teal   { background: linear-gradient(135deg, #064e3b 0%, #065f46 50%, #047857 100%); }
+  .bg-warm   { background: linear-gradient(135deg, #7c2d12 0%, #9a3412 50%, #c2410c 100%); }
+
+  /* ── Typography ── */
+  h1 { font-size: 4.5rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.05; }
+  h2 { font-size: 2.6rem; font-weight: 800; letter-spacing: -0.025em; line-height: 1.15; margin-bottom: 16px; }
+  h3 { font-size: 1.4rem; font-weight: 700; }
+  p  { font-size: 1.15rem; line-height: 1.6; opacity: 0.8; }
+
+  .gradient-text {
+    background: linear-gradient(135deg, #6ee7b7, #34d399, #10b981);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Components ── */
+  .badge {
+    display: inline-block; padding: 7px 18px; border-radius: 50px;
+    font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; margin-bottom: 18px;
+  }
+  .badge-emerald { background: rgba(16,185,129,0.15); color: #6ee7b7; }
+  .badge-red     { background: rgba(239,68,68,0.15); color: #fca5a5; }
+  .badge-blue    { background: rgba(59,130,246,0.15); color: #93c5fd; }
+  .badge-purple  { background: rgba(139,92,246,0.15); color: #c4b5fd; }
+  .badge-white   { background: rgba(255,255,255,0.12); color: #fff; }
+  .badge-amber   { background: rgba(245,158,11,0.15); color: #fcd34d; }
+
+  .card {
+    background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 20px; padding: 28px; backdrop-filter: blur(12px);
+  }
+
+  .pill {
+    display: inline-block; padding: 10px 20px; border-radius: 12px;
+    font-size: 0.95rem; font-weight: 600; margin: 5px;
+    background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  }
+
+  .bullet-list { list-style: none; padding: 0; }
+  .bullet-list li {
+    padding: 9px 0; font-size: 1.15rem; display: flex; align-items: center; gap: 14px;
+  }
+  .bullet-list li::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: #10b981; flex-shrink: 0; box-shadow: 0 0 10px rgba(16,185,129,0.5);
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 22px; }
+
+  /* ── Footer on every slide ── */
+  .slide-footer {
+    position: absolute; bottom: 24px; left: 70px; right: 70px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.75rem; opacity: 0.3;
+  }
+
+  /* ── Progress ── */
+  .progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg,#10b981,#06b6d4); z-index: 100; transition: width 0.35s ease; border-radius: 0 2px 2px 0; }
+  .counter { position: fixed; bottom: 16px; right: 36px; font-size: 0.75rem; opacity: 0.25; z-index: 100; }
+
+  /* ── Glow ── */
+  .glow { position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; }
+
+  /* ── Images ── */
+  .screenshot { border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.08); }
+  .phone-frame {
+    border-radius: 32px; box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+    border: 6px solid #222; max-height: 520px; object-fit: cover; object-position: top;
+  }
+
+  /* ── Divider dots ── */
+  .dots { display: flex; gap: 6px; justify-content: center; margin: 18px 0; }
+  .dots span { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.15); }
+  .dots span:nth-child(2) { width: 20px; border-radius: 3px; background: rgba(16,185,129,0.4); }
+
+  /* ── Number stat ── */
+  .stat-num {
+    font-size: 3.2rem; font-weight: 900; line-height: 1;
+    background: linear-gradient(135deg,#6ee7b7,#34d399); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+</style>
+</head>
+<body>
+
+<div class="progress" id="prog"></div>
+<div class="counter" id="cnt"></div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 1 — PAGE DE GARDE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-dark active" id="s1">
+  <div class="glow" style="width:500px;height:500px;background:rgba(16,185,129,0.06);top:-180px;right:-120px;"></div>
+  <div class="glow" style="width:350px;height:350px;background:rgba(6,182,212,0.05);bottom:-100px;left:-80px;"></div>
+
+  <!-- Logo watermark background -->
+  <img src="img/logo.png" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:500px;opacity:0.06;pointer-events:none;filter:brightness(2);" />
+
+  <!-- Logos top corners -->
+  <img src="img/logo.png" style="position:absolute;top:20px;left:40px;height:90px;opacity:0.95;border-radius:12px;" />
+  <img src="img/emsi.png" style="position:absolute;top:28px;right:40px;height:75px;opacity:0.9;" />
+
+  <!-- Center content -->
+  <div style="text-align:center;">
+    <img src="img/logo.png" style="height:220px;margin:0 auto 20px;border-radius:16px;display:block;" />
+
+    <div class="dots"><span></span><span></span><span></span></div>
+
+    <p style="font-size:1.35rem;opacity:0.7;max-width:650px;margin:0 auto 32px;">
+      Application marocaine tout-en-un pour simplifier le quotidien
+    </p>
+
+    <p style="font-size:1.1rem;opacity:0.5;margin-bottom:6px;">Presente par</p>
+    <div style="display:flex;justify-content:center;gap:24px;font-size:1.15rem;font-weight:600;opacity:0.85;">
+      <span>Othmane Dhilou</span>
+      <span style="opacity:0.3;">|</span>
+      <span>Ahlam Khalil</span>
+      <span style="opacity:0.3;">|</span>
+      <span>Yassir Drissi</span>
+    </div>
+  </div>
+
+  <!-- Bottom left -->
+  <div style="position:absolute;bottom:28px;left:50px;display:flex;align-items:center;gap:10px;">
+    <span class="badge badge-emerald" style="margin:0;">ETH Hackathon 2026</span>
+  </div>
+  <div style="position:absolute;bottom:32px;right:50px;opacity:0.3;font-size:0.8rem;">EMSI Rabat</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 2 — SOMMAIRE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s2">
+  <span class="badge badge-white">Sommaire</span>
+  <h2>Plan de la presentation</h2>
+
+  <div style="margin-top:30px;max-width:700px;">
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">01</span>
+      <span style="font-size:1.2rem;font-weight:600;">Problematique</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">02</span>
+      <span style="font-size:1.2rem;font-weight:600;">Notre solution — HAYATI</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">03</span>
+      <span style="font-size:1.2rem;font-weight:600;">Fonctionnalites</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">04</span>
+      <span style="font-size:1.2rem;font-weight:600;">Technologies utilisees</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">05</span>
+      <span style="font-size:1.2rem;font-weight:600;">Bonus — Chatbot IA</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">06</span>
+      <span style="font-size:1.2rem;font-weight:600;">Base de donnees</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.06);">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">07</span>
+      <span style="font-size:1.2rem;font-weight:600;">Securite & Deploiement</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:20px;padding:16px 0;">
+      <span style="font-size:2rem;font-weight:900;opacity:0.15;width:50px;">08</span>
+      <span style="font-size:1.2rem;font-weight:600;">Perspectives & Conclusion</span>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3 — PROBLEMATIQUE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s3">
+  <span class="badge badge-red">01 — Problematique</span>
+  <h2>Le quotidien au Maroc :<br><span class="gradient-text">trop d'apps, pas de solution unifiee</span></h2>
+
+  <div style="margin-top:32px;max-width:800px;">
+    <ul class="bullet-list" style="font-size:1.2rem;">
+      <li>Aucun outil centralise pour gerer ses documents (CIN, permis, passeport...)</li>
+      <li>Impossible de comparer facilement les prix entre supermarches</li>
+      <li>Pas de suivi budgetaire adapte au contexte marocain (DH, categories locales)</li>
+      <li>Trouver un prestataire fiable (plombier, electricien) reste difficile</li>
+      <li>Comparer les prix de transport (taxi, train, bus) necessite plusieurs sites</li>
+      <li>Aucune application tout-en-un pensee pour le Maroc</li>
+    </ul>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 4 — SOLUTION + SCREENSHOTS
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-teal" id="s4">
+  <span class="badge badge-emerald">02 — Notre Solution</span>
+  <h2>HAYATI — une seule application<br>pour <span class="gradient-text">tout votre quotidien</span></h2>
+
+  <div style="display:flex;align-items:center;gap:50px;margin-top:30px;">
+    <!-- Phone -->
+    <div style="flex-shrink:0;text-align:center;">
+      <img src="img/phone-home.jpg" class="phone-frame" style="height:460px;width:auto;" />
+      <p style="font-size:0.85rem;opacity:0.5;margin-top:12px;">Version mobile</p>
+    </div>
+    <!-- Desktop -->
+    <div style="flex:1;">
+      <img src="img/desktop-home.png" class="screenshot" style="width:100%;max-height:380px;object-fit:cover;object-position:top;" />
+      <p style="font-size:0.85rem;opacity:0.5;margin-top:12px;text-align:center;">Version desktop</p>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 5 — FONCTIONNALITES
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s5">
+  <span class="badge badge-emerald">03 — Fonctionnalites</span>
+  <h2>5 modules <span class="gradient-text">intelligents</span></h2>
+
+  <div class="grid-3" style="margin-top:28px;gap:18px;">
+    <div class="card">
+      <div style="font-size:2rem;margin-bottom:10px;">📋</div>
+      <h3>Documents</h3>
+      <ul class="bullet-list" style="margin-top:10px;font-size:0.9rem;">
+        <li>Stocker CIN, permis, passeport, assurance</li>
+        <li>Alertes automatiques avant expiration</li>
+        <li>Ajouter / supprimer en un clic</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:2rem;margin-bottom:10px;">💳</div>
+      <h3>Budget</h3>
+      <ul class="bullet-list" style="margin-top:10px;font-size:0.9rem;">
+        <li>Suivi revenus et depenses en DH</li>
+        <li>Categories marocaines (Courses, Loyer, Cafe...)</li>
+        <li>Conseils IA personnalises</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:2rem;margin-bottom:10px;">🛒</div>
+      <h3>Comparateur de prix</h3>
+      <ul class="bullet-list" style="margin-top:10px;font-size:0.9rem;">
+        <li>Comparer BIM, Marjane, Carrefour</li>
+        <li>Graphiques de comparaison visuels</li>
+        <li>Promotions en temps reel</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:18px;max-width:66%;">
+    <div class="card">
+      <div style="font-size:2rem;margin-bottom:10px;">🚗</div>
+      <h3>Transport</h3>
+      <ul class="bullet-list" style="margin-top:10px;font-size:0.9rem;">
+        <li>Comparer taxi, train, bus, tram, covoiturage</li>
+        <li>Prix et duree par trajet</li>
+        <li>Trajets populaires pre-enregistres</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:2rem;margin-bottom:10px;">🔧</div>
+      <h3>Services locaux</h3>
+      <ul class="bullet-list" style="margin-top:10px;font-size:0.9rem;">
+        <li>Annuaire de prestataires verifies</li>
+        <li>Notes, avis et filtrage par ville</li>
+        <li>Contact direct par telephone</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 6 — TECHNOLOGIES
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s6">
+  <span class="badge badge-blue">04 — Technologies</span>
+  <h2>Stack technique <span class="gradient-text">moderne</span></h2>
+
+  <div class="grid-2" style="margin-top:30px;">
+    <div class="card">
+      <h3 style="opacity:0.5;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;">Frontend</h3>
+      <ul class="bullet-list">
+        <li>Next.js 16 (App Router) + React 19</li>
+        <li>TypeScript pour la surete du code</li>
+        <li>Tailwind CSS 4 pour le design</li>
+        <li>Framer Motion pour les animations</li>
+        <li>Axios + Cookie-based auth</li>
+        <li>Deploye sur Vercel (CDN mondial)</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="opacity:0.5;font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:18px;">Backend</h3>
+      <ul class="bullet-list">
+        <li>Laravel 11 + PHP 8.3</li>
+        <li>API RESTful — 38+ endpoints</li>
+        <li>MySQL — 24 tables normalisees</li>
+        <li>Laravel Sanctum (auth JWT)</li>
+        <li>Groq API (IA Llama 3.3 70B)</li>
+        <li>Deploye sur Railway (cloud)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 7 — CHATBOT IA (BONUS)
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-indigo" id="s7">
+  <div class="glow" style="width:400px;height:400px;background:rgba(139,92,246,0.08);top:-120px;right:-80px;"></div>
+
+  <span class="badge badge-purple">05 — Bonus IA</span>
+  <h2>Chatbot IA <span class="gradient-text">bilingue</span></h2>
+
+  <div style="display:flex;align-items:center;gap:50px;margin-top:24px;">
+    <!-- Screenshot chatbot -->
+    <div style="flex-shrink:0;">
+      <img src="img/chatbot.png" class="screenshot" style="height:420px;width:auto;border-radius:20px;" />
+    </div>
+    <!-- Details -->
+    <div style="flex:1;">
+      <ul class="bullet-list" style="font-size:1.15rem;">
+        <li>Modele Llama 3.3 70B via Groq API (gratuit)</li>
+        <li>Comprend le Darija marocain et le Francais</li>
+        <li>Aide sur les documents, budget, prix, transport</li>
+        <li>Historique de conversation sauvegarde</li>
+        <li>Reponses contextuelles et personnalisees</li>
+        <li>Interface style messagerie (WhatsApp-like)</li>
+      </ul>
+
+      <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="pill" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.25);">Open Source</span>
+        <span class="pill" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.25);">Gratuit</span>
+        <span class="pill" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.25);">Temps reel</span>
+        <span class="pill" style="background:rgba(139,92,246,0.15);border-color:rgba(139,92,246,0.25);">Darija + FR</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 8 — BASE DE DONNEES
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s8">
+  <span class="badge badge-amber">06 — Base de donnees</span>
+  <h2>Architecture des <span class="gradient-text">donnees</span></h2>
+
+  <div class="grid-2" style="margin-top:24px;">
+    <div>
+      <h3 style="margin-bottom:16px;font-size:1.1rem;">24 tables MySQL normalisees</h3>
+      <div class="card" style="padding:20px;">
+        <ul class="bullet-list" style="font-size:0.95rem;">
+          <li><strong>users</strong> — comptes utilisateurs</li>
+          <li><strong>documents</strong> — CIN, permis, passeport</li>
+          <li><strong>transactions</strong> — revenus et depenses</li>
+          <li><strong>transport_routes</strong> — itineraires</li>
+          <li><strong>transport_options</strong> — prix par type</li>
+          <li><strong>service_categories</strong> — types de services</li>
+          <li><strong>service_providers</strong> — prestataires</li>
+          <li><strong>reviews</strong> — avis et notes</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <h3 style="margin-bottom:16px;font-size:1.1rem;">Module prix & promotions</h3>
+      <div class="card" style="padding:20px;">
+        <ul class="bullet-list" style="font-size:0.95rem;">
+          <li><strong>product_categories</strong> — categories produits</li>
+          <li><strong>products</strong> — catalogue produits</li>
+          <li><strong>stores</strong> — BIM, Marjane, Carrefour</li>
+          <li><strong>product_prices</strong> — prix par magasin</li>
+          <li><strong>promotions</strong> — promos actives</li>
+          <li><strong>chat_messages</strong> — historique IA</li>
+          <li><strong>personal_access_tokens</strong> — auth JWT</li>
+          <li><strong>+ autres tables</strong> — migrations, cache...</li>
+        </ul>
+      </div>
+
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;">
+        <span class="pill" style="font-size:0.85rem;">Relations 1:N</span>
+        <span class="pill" style="font-size:0.85rem;">Foreign keys</span>
+        <span class="pill" style="font-size:0.85rem;">Indexes</span>
+        <span class="pill" style="font-size:0.85rem;">Seeders</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 9 — SECURITE & DEPLOIEMENT
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-deep" id="s9">
+  <span class="badge badge-amber">07 — Securite & Deploiement</span>
+  <h2>Production-ready <span class="gradient-text">& securise</span></h2>
+
+  <div class="grid-2" style="margin-top:28px;">
+    <div class="card">
+      <div style="font-size:1.8rem;margin-bottom:12px;">🔒</div>
+      <h3>Securite</h3>
+      <ul class="bullet-list" style="margin-top:12px;font-size:0.95rem;">
+        <li>Authentification JWT (Laravel Sanctum)</li>
+        <li>CORS strict — origines specifiques</li>
+        <li>Headers securite (HSTS, X-Frame-Options)</li>
+        <li>Rate limiting — 60 requetes/minute</li>
+        <li>Validation des entrees cote serveur</li>
+        <li>HTTPS obligatoire en production</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div style="font-size:1.8rem;margin-bottom:12px;">🚀</div>
+      <h3>Deploiement</h3>
+      <ul class="bullet-list" style="margin-top:12px;font-size:0.95rem;">
+        <li>Frontend : Vercel — CDN mondial, SSL auto</li>
+        <li>Backend : Railway — cloud scalable</li>
+        <li>BDD : MySQL heberge sur Railway</li>
+        <li>SEO : Open Graph, Twitter Cards, Meta tags</li>
+        <li>PWA manifest pour installation mobile</li>
+        <li>URL publique : hayati.cfd</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;text-align:center;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);font-size:0.85rem;">38+ endpoints</span>
+    <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);font-size:0.85rem;">24 tables</span>
+    <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);font-size:0.85rem;">8 pages</span>
+    <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);font-size:0.85rem;">100% deploye</span>
+    <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);font-size:0.85rem;">Responsive</span>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 10 — PERSPECTIVES
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-teal" id="s10">
+  <span class="badge badge-emerald">08 — Perspectives</span>
+  <h2>Et apres ? <span class="gradient-text">La suite de HAYATI</span></h2>
+
+  <div class="grid-2" style="margin-top:28px;">
+    <div>
+      <h3 style="margin-bottom:16px;">Court terme</h3>
+      <ul class="bullet-list" style="font-size:1.05rem;">
+        <li>Notifications push pour les rappels documents</li>
+        <li>Geolocalisation pour les services a proximite</li>
+        <li>Mode hors-ligne (PWA avance)</li>
+        <li>Ajout de plus de villes et prestataires</li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="margin-bottom:16px;">Long terme</h3>
+      <ul class="bullet-list" style="font-size:1.05rem;">
+        <li>Application mobile native (React Native)</li>
+        <li>Systeme de paiement integre</li>
+        <li>IA predictive pour le budget</li>
+        <li>Marketplace de services marocains</li>
+        <li>Partenariats avec BIM, Marjane, ONCF</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="slide-footer"><span>HAYATI — ETH 2026</span><span>Dhilou, Khalil, Drissi</span></div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 11 — MERCI
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="slide bg-dark" id="s11">
+  <div class="glow" style="width:600px;height:600px;background:rgba(16,185,129,0.05);top:-200px;right:-200px;"></div>
+  <div class="glow" style="width:400px;height:400px;background:rgba(6,182,212,0.04);bottom:-120px;left:-100px;"></div>
+
+  <!-- Logos -->
+  <img src="img/logo.png" style="position:absolute;top:20px;left:40px;height:80px;opacity:0.8;border-radius:12px;" />
+  <img src="img/emsi.png" style="position:absolute;top:28px;right:40px;height:65px;opacity:0.7;" />
+
+  <div style="text-align:center;">
+    <img src="img/logo.png" style="height:180px;margin:0 auto 16px;border-radius:14px;display:block;" />
+
+    <div class="dots"><span></span><span></span><span></span></div>
+
+    <p style="font-size:1.6rem;font-weight:700;opacity:0.9;margin-bottom:8px;">Merci pour votre attention</p>
+
+    <p style="font-size:1.1rem;opacity:0.4;margin-bottom:32px;">
+      Othmane Dhilou &middot; Ahlam Khalil &middot; Yassir Drissi
+    </p>
+
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:36px;">
+      <span class="pill" style="background:rgba(16,185,129,0.12);border-color:rgba(16,185,129,0.2);">hayati.cfd</span>
+    </div>
+
+    <p style="opacity:0.35;font-size:1.15rem;">Des questions ?</p>
+  </div>
+
+  <div style="position:absolute;bottom:28px;left:50px;">
+    <span class="badge badge-emerald" style="margin:0;">ETH Hackathon 2026</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════ -->
+<script>
+  let c = 1;
+  const t = 11;
+  const upd = () => {
+    document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+    document.getElementById('s' + c).classList.add('active');
+    document.getElementById('cnt').textContent = c + ' / ' + t;
+    document.getElementById('prog').style.width = ((c / t) * 100) + '%';
+  };
+  document.addEventListener('keydown', e => {
+    if (['ArrowRight',' ','Enter'].includes(e.key)) { e.preventDefault(); if (c < t) { c++; upd(); } }
+    else if (['ArrowLeft','Backspace'].includes(e.key)) { e.preventDefault(); if (c > 1) { c--; upd(); } }
+    else if (e.key === 'f' || e.key === 'F') { document.documentElement.requestFullscreen?.(); }
+    else if (e.key === 'Home') { c = 1; upd(); }
+    else if (e.key === 'End') { c = t; upd(); }
+  });
+  document.addEventListener('click', e => {
+    if (e.clientX > window.innerWidth / 2) { if (c < t) { c++; upd(); } }
+    else { if (c > 1) { c--; upd(); } }
+  });
+  upd();
+</script>
+</body>
+</html>
